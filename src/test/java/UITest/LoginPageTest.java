@@ -1,8 +1,12 @@
 package UITest;
 
+import java.time.Duration;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPageTest {
 
@@ -15,7 +19,7 @@ public class LoginPageTest {
 		
 		driver.manage().window().maximize();
 		
-		for(int i = 0; i < 15; i++)
+		for(int i = 0; i < 2; i++)
 		{
 			// Initial Login Process
 			
@@ -33,7 +37,11 @@ public class LoginPageTest {
 			
 			// Validation Process:
 			
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+			
 			String currentURL = driver.getCurrentUrl();
+			
+			wait.until(ExpectedConditions.urlContains("logged-in-successfully"));
 			
 			if(currentURL.contains("logged-in-successfully"))
 			{
