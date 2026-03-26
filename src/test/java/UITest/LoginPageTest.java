@@ -1,6 +1,7 @@
 package UITest;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class LoginPageTest {
@@ -13,11 +14,31 @@ public class LoginPageTest {
 		driver.get("https://practicetestautomation.com/practice-test-login/");
 		
 		driver.manage().window().maximize();
-		driver.findElement(By.xpath("//*[@id=\"username\"]")).click();
-		driver.findElement(By.xpath("//*[@id=\"username\"]")).sendKeys("student");
-		driver.findElement(By.xpath("//*[@id=\"password\"]")).click();
-		driver.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys("Password123");
-		driver.findElement(By.xpath("//*[@id=\"submit\"]")).click();
+		
+		// Initial Login Process
+		
+		WebElement usernameField = driver.findElement(By.xpath("//*[@id=\"username\"]"));
+		WebElement passwordField = driver.findElement(By.xpath("//*[@id=\"password\"]"));
+		WebElement submitButton1 = driver.findElement(By.xpath("//*[@id=\"submit\"]"));
+		
+		usernameField.click();
+		usernameField.sendKeys("student");
+		
+		passwordField.click();
+		passwordField.sendKeys("Password123");
+		
+		submitButton1.click();
+		
+		// Validation Process:
+		
+		String currentURL = driver.getCurrentUrl();
+		
+		if(currentURL.contains("logged-in-successfully"))
+		{
+			WebElement logOutButton = driver.findElement(By.partialLinkText("Log out"));
+			
+			logOutButton.click();
+		}
 	}
 
 }
