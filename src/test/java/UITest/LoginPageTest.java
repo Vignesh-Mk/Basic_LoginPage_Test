@@ -15,30 +15,39 @@ public class LoginPageTest {
 		
 		driver.manage().window().maximize();
 		
-		// Initial Login Process
-		
-		WebElement usernameField = driver.findElement(By.xpath("//*[@id=\"username\"]"));
-		WebElement passwordField = driver.findElement(By.xpath("//*[@id=\"password\"]"));
-		WebElement submitButton1 = driver.findElement(By.xpath("//*[@id=\"submit\"]"));
-		
-		usernameField.click();
-		usernameField.sendKeys("student");
-		
-		passwordField.click();
-		passwordField.sendKeys("Password123");
-		
-		submitButton1.click();
-		
-		// Validation Process:
-		
-		String currentURL = driver.getCurrentUrl();
-		
-		if(currentURL.contains("logged-in-successfully"))
+		for(int i = 0; i < 15; i++)
 		{
-			WebElement logOutButton = driver.findElement(By.partialLinkText("Log out"));
+			// Initial Login Process
 			
-			logOutButton.click();
+			WebElement usernameField = driver.findElement(By.xpath("//*[@id=\"username\"]"));
+			WebElement passwordField = driver.findElement(By.xpath("//*[@id=\"password\"]"));
+			WebElement submitButton1 = driver.findElement(By.xpath("//*[@id=\"submit\"]"));
+			
+			usernameField.click();
+			usernameField.sendKeys("student");
+			
+			passwordField.click();
+			passwordField.sendKeys("Password123");
+			
+			submitButton1.click();
+			
+			// Validation Process:
+			
+			String currentURL = driver.getCurrentUrl();
+			
+			if(currentURL.contains("logged-in-successfully"))
+			{
+				WebElement logOutButton = driver.findElement(By.partialLinkText("Log out"));
+				
+				logOutButton.click();
+				
+				String message = String.format("Login-Logout cycle complete: %d", i+1);
+				
+				System.out.println(message);
+			}
 		}
+		
+		
 	}
 
 }
